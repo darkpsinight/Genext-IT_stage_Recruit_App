@@ -1,0 +1,16 @@
+.title h1 {
+  text-align: center;
+  padding: 30px;
+  font-weight: 300;
+}
+
+.list p {
+  margin-bottom: 50px;
+}
+.jobslist {
+  margin-top: 100px;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  flex-direction: column;
+}
