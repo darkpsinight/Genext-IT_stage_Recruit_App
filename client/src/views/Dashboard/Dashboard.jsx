@@ -22,9 +22,6 @@ import { logoutUser } from '../../auth/actions/userActions';
 //React router
 import { useNavigate } from 'react-router-dom';
 
-
-
-
 const Dashboard = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -62,8 +59,11 @@ const Dashboard = () => {
           <StyledButton to="#">Post Job</StyledButton>
           <StyledButton
             bg={colors.red}
-            to="#"
-            onClick={()=> dispatch(logoutUser(navigate))}
+            to="/"
+            onClick={(e) => {
+              e.preventDefault();
+              dispatch(logoutUser(navigate));
+            }}
           >
             Logout
           </StyledButton>
