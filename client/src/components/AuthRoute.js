@@ -1,7 +1,7 @@
 //Dashboard cannot be accessed unless Logged in
 
-import { Route, Redirect } from 'react-router-dom'
-import { connect } from 'redux'
+import { Route, Navigate } from 'react-router-dom'
+import { connect } from 'react-redux'
 
 const AuthRoute = ({ children, authenticated, ...rest }) => {
     return (
@@ -9,11 +9,12 @@ const AuthRoute = ({ children, authenticated, ...rest }) => {
             {...rest}
             render={
                 ({ location }) => authenticated ? (children) : (
-                    <Redirect
+                    <Navigate
                         to={{
                             pathname: "/login",
                             state: { from: location }
                         }}
+                        /* replace */
                     />
                 )
             }
