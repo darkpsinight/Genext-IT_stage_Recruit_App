@@ -4,6 +4,7 @@ const bodyparser = require('body-parser')
 
 const FormRoute = require('./routes/FormRoute')
 const SignupRoute = require('./routes/SignupRoute')
+const SubmitjobRoute = require('./routes/SubmitjobRoute')
 
 //database
 mongoose.connect('mongodb://localhost:27017/form', { useNewUrlParser: true, useUnifiedTopology: true })
@@ -39,3 +40,4 @@ app.listen(PORT, () => {
 
 app.use('/api/form', FormRoute);
 app.use('/api/form', SignupRoute);
+app.use('/api/form', SubmitjobRoute);

@@ -3,6 +3,7 @@ import {
   StyledSubTitle,
   Avatar,
   StyledButton,
+  StyledFormButton,
   ButtonGroup,
   StyledFormArea,
   colors
@@ -18,9 +19,13 @@ import Logo from './../../assets/logo.png';
 //auth & redux
 import { useDispatch } from 'react-redux';
 import { logoutUser } from '../../auth/actions/userActions';
+import { submitJob } from '../../auth/actions/submitJob';
 
 //React router
 import { useNavigate } from 'react-router-dom';
+
+//Loader
+import { ThreeDots } from 'react-loader-spinner';
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -39,35 +44,50 @@ const Dashboard = () => {
             title: '',
             description: ''
           }}
+          onSubmit={(values) => {
+            console.log(values);
+            submitJob(values);
+          }}
         >
-          <Form>
-            <TextInput
-              name="title"
-              type="text"
-              label="Title :"
-              placeholder="Job Title"
-            />
-            <TextInput
-              name="description"
-              type="text"
-              label="Description :"
-              placeholder="Job description"
-            />
-          </Form>
+          {({ isSubmitting }) => (
+            <Form>
+              <TextInput
+                name="title"
+                type="text"
+                label="Title of the new post: "
+                placeholder="Job Title..."
+              />
+              <br></br>
+              <TextInput
+                name="description"
+                type="text"
+                label="Description of the new job: "
+                placeholder="Job description..."
+              />
+              <ButtonGroup>
+                {!isSubmitting && (
+                  <StyledFormButton type="submit" to="/joblist">
+                    Post Job
+                  </StyledFormButton>
+                )}
+                {isSubmitting && (
+                  <ThreeDots color="#4EBBF7" height={80} width={80} />
+                )}
+                <StyledButton
+                  bg={colors.red}
+                  style={{color: "red"}}
+                  to="/"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    dispatch(logoutUser(navigate));
+                  }}
+                >
+                  Logout
+                </StyledButton>
+              </ButtonGroup>
+            </Form>
+          )}
         </Formik>
-        <ButtonGroup>
-          <StyledButton to="#">Post Job</StyledButton>
-          <StyledButton
-            bg={colors.red}
-            to="/"
-            onClick={(e) => {
-              e.preventDefault();
-              dispatch(logoutUser(navigate));
-            }}
-          >
-            Logout
-          </StyledButton>
-        </ButtonGroup>
       </StyledFormArea>
     </div>
   );
